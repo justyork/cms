@@ -1,0 +1,11 @@
+/index-test.php
+/robots.txt
+/node_modules/
+/dist/
+/.git/
+/app/css/
+/**/*.psd
+/**/Thumbs.db
+/**/*.DS_Store
+/vendor/
+/bower_components
