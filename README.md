@@ -1,20 +1,14 @@
-Yii 2 Advanced Project Template
+CMS BASED ON Yii 2 Advanced
 ===============================
-
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
-
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
-
+  
 The template is designed to work in a team development environment. It supports
 deploying the application in different environments.
 
 Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
-[![Latest Stable Version](https://poser.pugx.org/justyork/justyork/v/stable.png)](https://packagist.org/packages/justyork/justyork)
-[![Total Downloads](https://poser.pugx.org/justyork/justyork/downloads.png)](https://packagist.org/packages/justyork/justyork)
-[![Build Status](https://travis-ci.org/justyork/justyork.svg?branch=master)](https://travis-ci.org/justyork/justyork)
+[![Latest Stable Version](https://poser.pugx.org/justyork/cms/v/stable.png)](https://packagist.org/packages/justyork/cms)
+[![Total Downloads](https://poser.pugx.org/justyork/cms/downloads.png)](https://packagist.org/packages/justyork/cms)
+[![Build Status](https://travis-ci.org/justyork/cms.svg?branch=master)](https://travis-ci.org/justyork/cms)
 
 
 
@@ -22,10 +16,8 @@ INSTALLATION GUIDE
 -------------------
 * Clone the project: `git clone git@bitbucket.org:justyork/dcars.git .`
 * Configure Database: `environments/[dev|prod]/common/main-local.php`
-* Initialisation: `php yii init` 
-* Migrate RBAC - `yii migrate --migrationPath=@mdm/admin/migrations`
-* Migrate RBAC - `yii migrate --migrationPath=@yii/rbac/migrations`
-* Migrate other tables: `php yii migrate` 
+* Initialisation: `php yii init`  
+* Migrate tables: `php yii migrate` 
 
 
 DIRECTORY STRUCTURE
