@@ -6,6 +6,11 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
+
+    <?
+    var_dump(Yii::$app->user->can('ROLE_CRtUD'));
+
+    ?>
     <div class="jumbotron">
         <h1>Congratulations!</h1>
 

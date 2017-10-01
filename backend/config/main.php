@@ -12,25 +12,18 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'admin' => [
-            'class' => 'mdm\admin\Module',
-        ],
     ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
-//        'user' => [
-//            'identityClass' => 'common\models\User',
-//            'enableAutoLogin' => true,
-//            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-//        ],
-
         'user' => [
-//            'class' => 'mdm\admin\models\User',
-            'identityClass' => 'mdm\admin\models\User',
-            'loginUrl' => ['site/login'],
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+        'loginUrl' => ['site/login'],
         ],
+
         'session' => [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
@@ -58,10 +51,4 @@ return [
     ],
     'params' => $params,
 
-    'as access' => [
-        'class' => 'mdm\admin\components\AccessControl',
-        'allowActions' => [
-            'site/login',
-        ]
-    ]
 ];

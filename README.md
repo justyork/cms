@@ -14,10 +14,11 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
 INSTALLATION GUIDE
 -------------------
-* Clone the project: `git clone git@bitbucket.org:justyork/dcars.git .`
+* Download via composer: `composer create-project justyork/cms new-project`
 * Configure Database: `environments/[dev|prod]/common/main-local.php`
 * Initialisation: `php yii init`  
 * Migrate tables: `php yii migrate` 
+* Install some data: `php yii install` 
 
 
 DIRECTORY STRUCTURE

@@ -4,13 +4,8 @@
 /* @var $content string */
 
 use backend\assets\AppAsset;
-use mdm\admin\components\MenuHelper;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -43,17 +38,10 @@ AppAsset::register($this);
     </ul>
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item">
-            <span class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <?php
-
-                echo Html::beginForm(['/site/logout'], 'post')
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'btn btn-link logout']
-                    )
-                    . Html::endForm()
-                ?>
-            </span>
+            <?= Html::a('Logout (' . Yii::$app->user->identity->username . ')', ['site/logout'], ['class' => 'nav-link nav-link logout']) ?>
+        </li>
+        <li class="nav-item dropdown">
+            |
         </li>
         <li class="nav-item dropdown">
 
@@ -99,7 +87,7 @@ AppAsset::register($this);
                 'linkTemplate' => '<a href="{url}" class="nav-link">{label}</a>',
                 'itemOptions' => ['class' => 'nav-item'],
                 'submenuTemplate' => "\n<ul class='nav-dropdown-items'>\n{items}\n</ul>\n",
-                'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id, null, \common\models\CMS::AdminMenuCallback())
+                'items' => backend\models\Menu::Get()
             ]);?>
         </nav>
     </div>

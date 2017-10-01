@@ -6,9 +6,7 @@
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
+        "issues": "https://github.com/justyork/cms/issues",
         "source": "https://github.com/justyork/cms"
     },
     "minimum-stability": "stable",

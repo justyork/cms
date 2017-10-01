@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\Car;
 use common\models\Model;
 use common\models\News;
+use common\models\User;
 use common\models\Work;
 use Yii;
 use yii\base\InvalidParamException;
@@ -22,6 +23,8 @@ use frontend\models\ContactForm;
  */
 class SiteController extends Controller
 {
+
+
     /**
      * @inheritdoc
      */
@@ -221,4 +224,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+
 }
