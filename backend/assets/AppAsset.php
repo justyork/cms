@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
         'dist/bower_components/tether/dist/js/tether.min.js',
         'dist/bower_components/bootstrap/dist/js/bootstrap.min.js',
         'dist/bower_components/pace/pace.min.js',
-        'dist/bower_components/chart.js/dist/Chart.min.js',
+//        'dist/bower_components/chart.js/dist/Chart.min.js',
         'dist/js/app.js',
 //        'js/main.js',
 //        'js/Notify.js',

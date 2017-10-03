@@ -7,12 +7,18 @@
  */
 use yii\helpers\Html;
 
+/**
+ * @var $field \yii\widgets\ActiveField
+ * @var $attribute string
+ * @var $model \common\models\ActiveRecord
+ */
 ?>
 
 <div class="row">
-    <div class="col-sm-3"><?= $form->field($model, $field)->fileInput() ?></div>
     <div class="col-sm-3">
-
+        <?= Html::activeFileInput($model, $attribute) ?>
+    </div>
+    <div class="col-sm-3">
         <?if($model->thumb):?>
             <?=Html::img($model->thumb)?>
         <?endif;?>

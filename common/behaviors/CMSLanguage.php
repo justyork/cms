@@ -9,6 +9,7 @@
 namespace common\behaviors;
 
 use common\models\Language;
+use dosamigos\tinymce\TinyMce;
 use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
@@ -155,22 +156,26 @@ class CMSLanguage extends Behavior{
         }
     }
 
-    public function LangField($field, $lng, $attr){
-        $fld = $field.'_'.$lng->code;
-        $text_input_class = 'form-control';
-        $ret = '';
 
-        $ret .= Html::activeLabel($this->owner, $fld, ['class' => 'control-label']);
+    public function LangField($form, $field, $lng, $attr){
+        $fld = $field.'_'.$lng->code;
+
+        if($attr['multiple'])
+            $fld .= '[]';
+
+        $model_field = $form->field($this->owner, $fld);
         switch ($attr['type']){
+            case "editor":
+                return $model_field->widget(TinyMce::className(), []);
+                break;
             case "textarea":
-                $ret .= Html::activeTextarea($this->owner, $fld, ['class' => $text_input_class]);
+                return $model_field->textarea();
                 break;
             case "textInput":
-                $ret .= Html::activeTextInput($this->owner, $fld, ['class' => $text_input_class]);
+                return $model_field->textInput();
                 break;
 
         }
 
-        return $ret;
     }
 }

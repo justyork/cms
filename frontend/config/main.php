@@ -15,11 +15,6 @@ return [
         'cart' => [
             'class' => 'frontend\components\Cart',
         ],
-        'seo' => [
-            'class' => 'frontend\components\Seo',
-            'default_title' => 'Dcars',
-            'default_description' => 'Dcars description',
-        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

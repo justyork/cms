@@ -15,13 +15,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
 
-    <?=\common\widgets\cms\LanguageForm::widget([
-        "model" => $model,
-        'columns' => [
-            'title' => ['type' => 'textInput'],
-            'text' => ['type' => 'textarea'],
-        ]
-    ])?>
+    <?=$form->field($model, 'lang')->widget(\common\widgets\cms\LanguageField::className(),[
+            'items' => [
+                'title' => ['type' => 'textInput'],
+                'text' => ['type' => 'editor'],
+            ]
+    ])->label(false)?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

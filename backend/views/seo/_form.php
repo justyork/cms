@@ -20,26 +20,26 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
-    <?= $form->field($model, 'model_name')->dropDownList(\common\models\Seo::$models, ['prompt' => 'Select model']) ?>
+    <?= $form->field($model, 'model_name')->dropDownList(Yii::$app->seo->model_list, ['prompt' => 'Select model']) ?>
 
     <?= $form->field($model, 'item_id')->textInput() ?>
 
     <?= $form->field($model, 'url')->textInput() ?>
 
 
-    <?=\common\widgets\cms\ImageField::widget(compact('form', 'model'))?>
+    <?= $form->field($model, 'imageFile')->widget(\common\widgets\cms\ImageField::className()) ?>
 
-    <?=\common\widgets\cms\LanguageForm::widget([
-        "model" => $model,
-        'columns' => [
+    <?=$form->field($model, 'lang')->widget(\common\widgets\cms\LanguageField::className(),[
+        'items' => [
             'title' => ['type' => 'textInput'],
             'description' => ['type' => 'textarea'],
             'keywords' => ['type' => 'textarea'],
             'h1' => ['type' => 'textInput'],
-            'top_text' => ['type' => 'textarea'],
-            'bottom_text' => ['type' => 'textarea'],
+            'top_text' => ['type' => 'editor'],
+            'bottom_text' => ['type' => 'editor'],
         ]
-    ])?>
+    ])->label(false)?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

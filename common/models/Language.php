@@ -15,7 +15,6 @@ use yii\helpers\Html;
  * @property string $country
  * @property integer $status
  *
- * @property PhraseTranslate[] $phraseTranslates
  */
 class Language extends ActiveRecord
 {
@@ -68,14 +67,6 @@ class Language extends ActiveRecord
 
         return self::$_lang_list;
 
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPhraseTranslates()
-    {
-        return $this->hasMany(PhraseTranslate::className(), ['language_id' => 'id']);
     }
 
 

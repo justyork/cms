@@ -3,8 +3,7 @@ CMS BASED ON Yii 2 Advanced
   
 The template is designed to work in a team development environment. It supports
 deploying the application in different environments.
-
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+ 
 
 [![Latest Stable Version](https://poser.pugx.org/justyork/cms/v/stable.png)](https://packagist.org/packages/justyork/cms)
 [![Total Downloads](https://poser.pugx.org/justyork/cms/downloads.png)](https://packagist.org/packages/justyork/cms)

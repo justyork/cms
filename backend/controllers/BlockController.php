@@ -26,6 +26,20 @@ class BlockController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => false,
+                        'actions' => ['*']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'create', 'update', 'delete', 'view'],
+                        'roles' => ['BLOCK_CRUD'],
+                    ],
+                ]
+            ]
         ];
     }
 

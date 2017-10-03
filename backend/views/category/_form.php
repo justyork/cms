@@ -20,16 +20,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'position')->textInput() ?>
 
 
-    <?=\common\widgets\cms\ImageField::widget([
-        'model' => $model,
-        'form' => $form
-    ])?>
-    <?=\common\widgets\cms\LanguageForm::widget([
-        "model" => $model,
-        'columns' => [
+    <?= $form->field($model, 'imageFile')->widget(\common\widgets\cms\ImageField::className()) ?>
+
+
+    <?=$form->field($model, 'lang')->widget(\common\widgets\cms\LanguageField::className(),[
+        'items' => [
             'name' => ['type' => 'textInput'],
         ]
-    ])?>
+    ])->label(false)?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

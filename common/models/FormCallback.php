@@ -15,6 +15,19 @@ use Yii;
  */
 class FormCallback extends ActiveRecord
 {
+
+    public $status_list;
+
+    public function init(){
+        $this->status_list = [
+            0 => Yii::t('app', 'Created'),
+            1 => Yii::t('app', 'Applied'),
+            2 => Yii::t('app', 'Processed')
+        ];
+
+        parent::init();
+    }
+
     /**
      * @inheritdoc
      */
@@ -46,5 +59,10 @@ class FormCallback extends ActiveRecord
             'date' => Yii::t('app', 'Date'),
             'status' => Yii::t('app', 'Status'),
         ];
+    }
+
+
+    public function getF_status(){
+        return $this->status_list[$this->status];
     }
 }

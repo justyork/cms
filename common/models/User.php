@@ -26,9 +26,32 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
 
+    public $role;
+    public $no_save = false;
+
+    public function afterFind(){
+
+        $roles = \Yii::$app->authManager->getRolesByUser($this->id);
+
+        foreach ($roles as $role)
+            $this->role = $role->name;
+
+        parent::afterFind();
+    }
+
+    public function afterSave($insert, $changedAttributes){
+        if(!$this->no_save){
+            $auth = \Yii::$app->authManager;
+            if($this->role == null) $this->role = 'user';
+            $role = $auth->getRole($this->role);
+
+            $auth->revokeAll($this->id);
+            $auth->assign($role, $this->id);
+        }
+
+        parent::afterSave($insert, $changedAttributes);
+    }
 
     /**
      * @inheritdoc
@@ -54,8 +77,36 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username', 'auth_key', 'password_hash', 'email'], 'required'],
+            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'name', 'surname', 'phone', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key', 'role'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
+            ['status', 'boolean'],
+        ];
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Username'),
+            'name' => Yii::t('app', 'Name'),
+            'surname' => Yii::t('app', 'Surname'),
+            'phone' => Yii::t('app', 'Phone'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
+            'password_hash' => Yii::t('app', 'Password Hash'),
+            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'email' => Yii::t('app', 'Email'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -64,7 +115,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status' => 1]);
     }
 
     /**
@@ -83,7 +134,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByEmail($email)
     {
-        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['email' => $email, 'status' => 1]);
     }
 
     /**
@@ -100,7 +151,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status' => 1,
         ]);
     }
 

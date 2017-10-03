@@ -19,6 +19,12 @@ return [
     ],
     'components' => [
 
+        'seo' => [
+            'class' => 'common\components\Seo',
+            'default_title' => 'Dcars',
+            'default_description' => 'Dcars description',
+
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\PhpManager'
         ],

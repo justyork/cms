@@ -14,13 +14,11 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?=\common\models\Language::widget('tab', [
-            'model' => $model,
-            'items' => [
-                'value' => ['type' => 'textarea']
-            ]
-    ])?>
-
+    <?=$form->field($model, 'lang')->widget(\common\widgets\cms\LanguageField::className(),[
+        'items' => [
+            'value' => ['type' => 'editor']
+        ]
+    ])->label(false)?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

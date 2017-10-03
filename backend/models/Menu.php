@@ -31,14 +31,7 @@ class Menu{
                 'items' => [
                     [
                         'label' =>  self::icon('directions').'Roles',
-                        'url' => ['roles/index'],
-                        'visible' => Yii::$app->user->can('ROLE_CRUD'),
-                        'options' => ['class' => $item_class],
-                        'encode' => false,
-                    ],
-                    [
-                        'label' =>  self::icon('direction').'Actions',
-                        'url' => ['client/index'],
+                        'url' => ['role/index'],
                         'visible' => Yii::$app->user->can('ROLE_CRUD'),
                         'options' => ['class' => $item_class],
                         'encode' => false,
@@ -78,7 +71,7 @@ class Menu{
                     ],
                     [
                         'label' =>  self::icon('puzzle').'Text blocks',
-                        'url' => ['text/index'],
+                        'url' => ['block/index'],
                         'visible' => Yii::$app->user->can('BLOCK_CRUD'),
                         'options' => ['class' => $item_class],
                         'encode' => false,

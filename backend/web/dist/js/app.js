@@ -26,6 +26,13 @@
 * MAIN NAVIGATION
 */
 
+
+
+$('[data-toggle]').click(function(){
+    var id = $(this).attr('data-toggle');
+    $('#'+id).toggle();
+});
+
 $(document).ready(function($){
 
   // Add class .active to current link

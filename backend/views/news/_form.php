@@ -14,20 +14,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
-    <?=\common\widgets\cms\ImageField::widget(compact('form', 'model'))?>
-
+    <?= $form->field($model, 'imageFile')->widget(\common\widgets\cms\ImageField::className()) ?>
 
     <?= $form->field($model, 'status')->checkbox() ?>
 
-    <?=\common\widgets\cms\LanguageForm::widget([
-        "model" => $model,
-        'columns' => [
+
+    <?=$form->field($model, 'lang')->widget(\common\widgets\cms\LanguageField::className(),[
+        'items' => [
             'title' => ['type' => 'textInput'],
-            'text' => ['type' => 'textarea']
+            'text' => ['type' => 'editor']
         ]
-    ])?>
-
-
+    ])->label(false)?>
 
 
     <div class="form-group">

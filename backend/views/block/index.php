@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'columns' => [
                         'id',
-                        'value',
+                        'title',
 
                         ['class' => 'yii\grid\ActionColumn'],
                     ],

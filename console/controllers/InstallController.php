@@ -34,119 +34,108 @@ class InstallController extends Controller
 
         /* Create users */
         // Admin
-        $user = User::findOne(1);
-        if(!$user){
-            $user = new User();
-            $this->id = 1;
-            $user->username = 'admin';
-            $user->name = 'Admin';
-            $user->email = 'admin@cms.ru';
-            $user->setPassword('demo');
-            $user->generateAuthKey();
-            $user->save();
+        $user = new User();
+        $user->no_save = true;
+        $user->id = 1;
+        $user->status = 1;
+        $user->username = 'admin';
+        $user->name = 'Admin';
+        $user->email = 'admin@cms.ru';
+        $user->setPassword('demo');
+        $user->generateAuthKey();
+        if(!$user->save()){
+            var_dump($user->getErrors());
+            die();
         }
+
 
         // Moderator
-        $user = User::findOne(2);
-        if(!$user){
-            $user = new User();
-            $this->id = 2;
-            $user->username = 'moderator';
-            $user->name = 'Moderator';
-            $user->email = 'moderator@cms.ru';
-            $user->setPassword('demo');
-            $user->generateAuthKey();
-            $user->save();
-        }
+        $user = new User();
+        $user->no_save = true;
+        $user->id = 2;
+        $user->status = 1;
+        $user->username = 'moderator';
+        $user->name = 'Moderator';
+        $user->email = 'moderator@cms.ru';
+        $user->setPassword('demo');
+        $user->generateAuthKey();
+        $user->save();
 
         // User
-        $user = User::findOne(3);
-        if(!$user){
-            $user = new User();
-            $this->id = 3;
-            $user->username = 'user';
-            $user->name = 'User';
-            $user->email = 'user@cms.ru';
-            $user->setPassword('demo');
-            $user->generateAuthKey();
-            $user->save();
-        }
+//        $user = User::findOne(3);
+        $user = new User();
+        $user->no_save = true;
+        $user->id = 3;
+        $user->status = 1;
+        $user->username = 'user';
+        $user->name = 'User';
+        $user->email = 'user@cms.ru';
+        $user->setPassword('demo');
+        $user->generateAuthKey();
+        $user->save();
 
+
+        $permissions = [
+            'ADMIN_PANEL' => 'Enter to admin panel',
+            'PROFILE' => 'Enter to profile',
+            'PAGE' => 'Show pages',
+            'PAGE_CREATE' => 'Create page',
+            'PAGE_UPDATE' => 'Update page',
+            'PAGE_DELETE' => 'Delete page',
+            'NEWS' => 'Show news',
+            'NEWS_CREATE' => 'Create news',
+            'NEWS_UPDATE' => 'Update news',
+            'NEWS_DELETE' => 'Delete news',
+            'LANGUAGE_CRUD' => 'Languages',
+            'USER_CRUD' => 'Show Users',
+            'SEO_CRUD' => 'Show Seo',
+            'CATEGORY_CRUD' => 'Show Category',
+            'BLOCK_CRUD' => 'Show Text blocks',
+            'FORM_CALLBACK' => 'Form callback data',
+            'FORM_ORDER' => 'Form order data',
+            'ROLE_CRUD' => 'Show Roles',
+            'PRODUCT' => 'Show products',
+            'PRODUCT_CREATE' => 'Create product',
+            'PRODUCT_UPDATE' => 'Update product',
+            'PRODUCT_DELETE' => 'Delete product',
+        ];
+
+        $roles = [
+            'admin' => 'all',
+            'moderator' => ['ADMIN_PANEL', 'PAGE_CREATE', 'PAGE_UPDATE', 'PAGE', 'NEWS', 'NEWS_CREATE', 'NEWS_UPDATE', 'FORM_CALLBACK', 'FORM_ORDER', 'PRODUCT', 'PRODUCT_CREATE', 'PRODUCT_UPDATE', 'PROFILE', ],
+            'user' => ['PROFILE'],
+        ];
 
 
         $this->auth = Yii::$app->authManager;
 
-        // Permissions
-        $p1 = $this->makePerm('ADMIN_PANEL', 'Enter to admin panel');
-        $p2 = $this->makePerm('PROFILE', 'Enter to profile');
-        $p3 = $this->makePerm('PAGE', 'PAGE');
-        $p4 = $this->makePerm('CREATE_PAGE', 'CREATE_PAGE');
-        $p5 = $this->makePerm('UPDATE_PAGE', 'UPDATE_PAGE');
-        $p6 = $this->makePerm('DELETE_PAGE', 'DELETE_PAGE');
-        $p7 = $this->makePerm('NEWS', 'NEWS');
-        $p8 = $this->makePerm('CREATE_NEWS', 'CREATE_NEWS');
-        $p9 = $this->makePerm('UPDATE_NEWS', 'UPDATE_NEWS');
-        $p10 = $this->makePerm('DELETE_NEWS', 'DELETE_NEWS');
-        $p11 = $this->makePerm('LANGUAGE_CRUD', 'LANGUAGE_CRUD');
-        $p12 = $this->makePerm('USER_CRUD', 'USER_CRUD');
-        $p13 = $this->makePerm('SEO_CRUD', 'SEO_CRUD');
-        $p14 = $this->makePerm('CATEGORY_CRUD', 'CATEGORY_CRUD');
-        $p15 = $this->makePerm('BLOCK_CRUD', 'BLOCK_CRUD');
-        $p16 = $this->makePerm('FORM_CALLBACK', 'FORM_CALLBACK');
-        $p17 = $this->makePerm('FORM_ORDER', 'FORM_ORDER');
-        $p18 = $this->makePerm('ROLE_CRUD', 'ROLE_CRUD');
-        $p19 = $this->makePerm('PRODUCT', 'PRODUCT');
-        $p20 = $this->makePerm('PRODUCT_CREATE', 'PRODUCT_CREATE');
-        $p21 = $this->makePerm('PRODUCT_UPDATE', 'PRODUCT_UPDATE');
-        $p22 = $this->makePerm('PRODUCT_DELETE', 'PRODUCT_DELETE');
-//        $p2 = $this->makePerm('', '');
-//        $p2 = $this->makePerm('', '');
-//        $p2 = $this->makePerm('', '');
-//        $p2 = $this->makePerm('', '');
+        $perm_data = [];
+        foreach ($permissions as $name => $val){
+            $perm_data[$name] = $this->makePerm($name, $val);
+        }
 
+        $roles_data = [];
+        foreach ($roles as $role_name => $perms){
+            $role = $this->auth->createRole($role_name);
+            $roles_data[$role_name] = $role;
+            $this->auth->add($role);
+            if($perms == 'all'){
+                foreach ($perm_data as $key => $val){
+                    $this->auth->addChild($role, $val);
+                }
+            }
+            else{
+                foreach ($perms as $val){
+                    $this->auth->addChild($role, $perm_data[$val]);
+                }
+            }
+        }
 
         /* Set permition */
 
-
-        // user
-        $user = $this->auth->createRole('user');
-        $this->auth->add($user);
-        $this->auth->addChild($user, $p2);
-
-        // moder
-        $moder = $this->auth->createRole('moderator');
-        $this->auth->add($moder);
-        $this->auth->addChild($moder, $user);
-        $this->auth->addChild($moder, $p1);
-        $this->auth->addChild($moder, $p3);
-        $this->auth->addChild($moder, $p4);
-        $this->auth->addChild($moder, $p5);
-        $this->auth->addChild($moder, $p7);
-        $this->auth->addChild($moder, $p8);
-        $this->auth->addChild($moder, $p9);
-        $this->auth->addChild($moder, $p16);
-        $this->auth->addChild($moder, $p17);
-        $this->auth->addChild($moder, $p19);
-        $this->auth->addChild($moder, $p20);
-        $this->auth->addChild($moder, $p21);
-
-        // admin
-        $admin = $this->auth->createRole('admin');
-        $this->auth->add($admin);
-        $this->auth->addChild($admin, $moder);
-        $this->auth->addChild($admin, $p6);
-        $this->auth->addChild($admin, $p10);
-        $this->auth->addChild($admin, $p11);
-        $this->auth->addChild($admin, $p12);
-        $this->auth->addChild($admin, $p13);
-        $this->auth->addChild($admin, $p14);
-        $this->auth->addChild($admin, $p15);
-        $this->auth->addChild($admin, $p18);
-        $this->auth->addChild($admin, $p22);
-
-        $this->auth->assign($admin, 1);
-        $this->auth->assign($moder, 2);
-        $this->auth->assign($user, 3);
+        $this->auth->assign($roles_data['admin'], 1);
+        $this->auth->assign($roles_data['moderator'], 2);
+        $this->auth->assign($roles_data['user'], 3);
 
         $this->stdout("Created users:\n-admin:demo \n-moderator:demo \n-user:demo \n\n");
         return true;

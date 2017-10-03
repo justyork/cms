@@ -123,3 +123,7 @@ a.desc:after {
     color: #fff;
     background: #304047;
 }
+
+.hidden{
+    display: none;
+}

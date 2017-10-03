@@ -15,6 +15,7 @@ use yii\base\Widget;
 class LanguageForm extends Widget{
 
     public $model;
+    public $form;
     public $columns;
 
     public function run(){

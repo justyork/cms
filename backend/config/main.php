@@ -15,13 +15,16 @@ return [
     ],
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
+            'enableCookieValidation' => true,
+            'enableCsrfValidation' => false,
+//            'enableCsrfValidation' => false,
+            'csrfParam' => '_csrf-backend1',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        'loginUrl' => ['site/login'],
+            'loginUrl' => ['site/login'],
         ],
 
         'session' => [

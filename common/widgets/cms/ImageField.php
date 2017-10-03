@@ -9,26 +9,16 @@
 namespace common\widgets\cms;
 
 
-use yii\base\Widget;
+use yii\widgets\InputWidget;
 
-class ImageField extends Widget{
+class ImageField extends InputWidget {
 
-    public $model;
-    public $form;
-    public $field = 'imageFile';
-
-    public function init(){
-        parent::init();
-
-
-    }
 
     public function run()
     {
         return $this->render('image_field', [
             'model' => $this->model,
-            'form' => $this->form,
-            'field' => $this->field
+            'attribute' => $this->attribute
         ]);
     }
 

@@ -24,23 +24,6 @@ use Yii;
 class Seo extends ActiveRecord
 {
 
-    public static $models = [
-        '1' => 'Index',
-        '2' => 'News',
-        '3' => 'Page',
-        '4' => 'Work',
-        '5' => 'Category',
-        '6' => 'Sub-Category',
-        '7' => 'Car',
-        '8' => 'Cart',
-    ];
-
-    public function init(){
-
-        self::$models = Yii::$app->seo->model_list;
-
-        parent::init();
-    }
 
     public $imageFile;
     public function behaviors()

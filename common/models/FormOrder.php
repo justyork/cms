@@ -14,10 +14,32 @@ use Yii;
  * @property string $message
  * @property integer $date
  * @property integer $status
+ * @property mixed $f_status
+ * @property void $f_data
  * @property string $items
  */
 class FormOrder extends ActiveRecord
 {
+    public $status_list;
+    public function init(){
+        $this->status_list = [
+            0 => Yii::t('app', 'Created'),
+            1 => Yii::t('app', 'Applied'),
+            2 => Yii::t('app', 'Processed')
+        ];
+
+        parent::init();
+    }
+
+    public function afterFind(){
+        $this->items = json_decode($this->items);
+        parent::afterFind();
+    }
+    public function beforeSave($insert){
+        $this->items = json_encode($this->items);
+        return parent::beforeSave($insert);
+    }
+
     /**
      * @inheritdoc
      */
@@ -53,5 +75,14 @@ class FormOrder extends ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'items' => Yii::t('app', 'Items'),
         ];
+    }
+
+
+    public function getF_status(){
+        return $this->status_list[$this->status];
+    }
+
+    public function getF_data(){
+
     }
 }
