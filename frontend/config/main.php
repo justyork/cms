@@ -11,12 +11,19 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'language' => 'en-US',
+    'sourceLanguage' => 'en-US',
+    'aliases' => [
+        '@dist' => '/frontend/web/dist/'
+    ],
     'components' => [
         'cart' => [
             'class' => 'frontend\components\Cart',
         ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => '/',
+            'class' => 'frontend\components\LangRequest'
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -40,9 +47,17 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
+            'class' => 'frontend\components\LangUrlManager',
+            'baseUrl' => '/',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/' => 'site/index',
+                'cart' => 'site/cart',
+                'news/<url:[\w-]+>-<id:\d+>' => 'news/get',
+                'news/p-<page:\d+>' => 'news/index',
+                'news' => 'news/index',
+                'page/<url:[\w-]+>' => 'page/get',
             ],
         ],
 

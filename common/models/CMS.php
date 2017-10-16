@@ -15,6 +15,10 @@ use yii\helpers\Html;
 class CMS
 {
 
+    public static function GenerateImageName(){
+        return date('dmY_His').'_'.Yii::$app->security->generateRandomString(8);
+    }
+
     public static function Block($block_name, $clear = false){
         /* @var $model Block */
 
