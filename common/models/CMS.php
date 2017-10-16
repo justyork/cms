@@ -20,7 +20,6 @@ class CMS
     }
 
     public static function Block($block_name, $clear = false){
-        /* @var $model Block */
 
         $model = Block::find()->where(['title' => $block_name])->one();
 
